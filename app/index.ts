@@ -4,32 +4,15 @@
 
 import * as http from 'http';
 import { Subject, Observable } from '@reactivex/rxjs';
+import { NextObserver } from '@reactivex/rxjs/src/Observer';
+import { RequestAction } from './RequestAction';
+
+import { aboutPage } from './pages/aboutPage';
+import { welcomePage } from './pages/welcomePage';
 
 const server = http.createServer();
 
 const requests$ = new Subject();
-
-class RequestAction {
-    public request: http.IncomingMessage;
-    public response: http.ServerResponse;
-
-    constructor(request: http.IncomingMessage, response: http.ServerResponse) {
-        this.request = request;
-        this.response = response;
-    }
-}
-
-// Pages
-const aboutPage = (action: RequestAction) => action.response.end('<h1>About</h1>');
-const welcomePage = (action: RequestAction) => action.response.end('<h1>Welcome</h1>');
-
-// Routes
-const aboutRoute = (action: RequestAction) => action.request.url.match(/^\/about/) !== null;
-const welcomeRoute = (action: RequestAction) => action.request.url.match(/^\/welcome/) !== null;
-
-// Complete services
-const about = requests$.filter(aboutRoute).map(aboutPage);
-const welcome = requests$.filter(welcomeRoute).map(welcomePage);
 
 // Push data to RX
 server.addListener(
@@ -37,15 +20,21 @@ server.addListener(
     (request, response) => requests$.next(new RequestAction(request, response))
 );
 
-
 // Combine services
-const app = Observable.merge(
-    about,
-    welcome
+const app = Observable.merge<RequestAction>(
+        aboutPage(requests$),
+        welcomePage(requests$)
 );
 
+class ResponseEmiter implements NextObserver<RequestAction> {
+    public next(action: RequestAction) {
+        action.emit();
+    }
+}
+const emiter = new ResponseEmiter();
+
 // Start stream
-app.subscribe();
+app.subscribe(emiter);
 
 // Start server
 server.listen(3030);

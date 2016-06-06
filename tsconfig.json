@@ -5,6 +5,7 @@
   },
   "files": [
     "app/index.ts",
+    "app/RequestAction.ts",
     "typings/index.d.ts"
   ]
 }
