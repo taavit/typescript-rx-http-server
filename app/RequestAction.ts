@@ -1,5 +1,6 @@
 /**
- * Request Action
+ * RequestAction is created to buffer response, and send prepared response on subscribe, so Rx pipeline is used
+ * only to prepare response.
  */
 import * as http from 'http';
 
