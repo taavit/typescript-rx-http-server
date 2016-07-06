@@ -3,10 +3,12 @@
  */
 import { RequestAction } from '../RequestAction';
 
+// Route
 const aboutRoute = (action: RequestAction) => action.request.url.match(/^\/about/) !== null;
 
+// Page
 const aboutView = (action: RequestAction) => {
-    action.builtResponse.body = '<h1>About</h1>';
+    action.setBody('<h1>About</h1>');
     return action;
 };
 

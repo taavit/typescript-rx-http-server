@@ -4,11 +4,11 @@
 import { RequestAction } from '../RequestAction';
 
 const welcomeView = (action: RequestAction) => {
-    action.builtResponse.body = '<h1>Welcome</h1>';
+    action.setBody('<h1>Welcome</h1>');
     return action;
 };
 
-// Routes
+// Route
 const welcomeRoute = (action: RequestAction) => action.request.url.match(/^\/welcome/) !== null;
 
 // Complete services
