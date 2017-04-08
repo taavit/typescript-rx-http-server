@@ -3,6 +3,9 @@
  */
 import { RequestAction } from '../RequestAction';
 
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+
 const welcomeView = (action: RequestAction) => {
     action.setBody('<h1>Welcome</h1>');
     return action;

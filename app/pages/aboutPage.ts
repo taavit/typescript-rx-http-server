@@ -3,6 +3,9 @@
  */
 import { RequestAction } from '../RequestAction';
 
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+
 // Route
 const aboutRoute = (action: RequestAction) => action.request.url.match(/^\/about/) !== null;
 

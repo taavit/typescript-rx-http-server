@@ -4,29 +4,19 @@ module.exports = {
         publicPath: 'http://localhost:8080/',
         filename: 'dist/bundle.js'
     },
-    devtool: 'inline-source-map',
     target: "node",
     module: {
-        preLoaders: [
+        rules: [
             {
                 test: /\.tsx?$/,
-                exclude: /(node_modules)/,
-                loader: 'source-map'
-            }
-        ],
-        loaders: [
-            {
-                test: /\.tsx?$/,
-                exclude: /(node_modules)/,
-                loaders: [
-                    'ts-loader'
-                ]
-            }
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+            },
         ]
     },
     resolve: {
-        extensions: ["", ".webpack.js", ".web.js", ".js", ".ts", ".tsx"]
-    }
+        extensions: [".tsx", ".ts", ".js"]
+    },
 };
 
 function getEntry() {

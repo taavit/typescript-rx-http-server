@@ -4,7 +4,6 @@
  */
 
 import * as http from 'http';
-import { ErrorAction } from './ErrorAction';
 import { Emitable } from './Emitable';
 
 export class RequestAction implements Emitable {
@@ -35,10 +34,6 @@ export class RequestAction implements Emitable {
     public setStatusCode(code: number) {
         this.handled = true;
         this.statusCode = code;
-    }
-
-    public createError(message: string, code: number) {
-        return new ErrorAction(this.response, message, code);
     }
 }
 
