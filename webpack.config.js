@@ -2,7 +2,7 @@ module.exports = {
     entry: getEntry(),
     output: {
         publicPath: 'http://localhost:8080/',
-        filename: 'dist/bundle.js'
+        filename: 'bundle.js'
     },
     target: "node",
     module: {

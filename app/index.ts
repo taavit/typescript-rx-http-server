@@ -3,11 +3,7 @@
  */
 
 import * as http from 'http';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
-import { NextObserver } from 'rxjs/Observer';
-
-import 'rxjs/add/observable/merge';
+import { Subject, NextObserver, merge } from 'rxjs';
 
 import { RequestAction } from './RequestAction';
 import { Emitable } from './Emitable';
@@ -27,7 +23,7 @@ server.addListener(
 );
 
 // Combine services
-const app = Observable.merge<RequestAction>(
+const app = merge<RequestAction>(
         aboutPage(requests$),
         welcomePage(requests$),
         // If all previous routes failed we can return 404 response

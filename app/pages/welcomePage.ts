@@ -3,8 +3,7 @@
  */
 import { RequestAction } from '../RequestAction';
 
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
+import { filter, map } from 'rxjs/operators';
 
 const welcomeView = (action: RequestAction) => {
     action.setBody('<h1>Welcome</h1>');
@@ -15,4 +14,7 @@ const welcomeView = (action: RequestAction) => {
 const welcomeRoute = (action: RequestAction) => action.request.url.match(/^\/welcome/) !== null;
 
 // Complete services
-export const welcomePage = (requests$) => requests$.filter(welcomeRoute).map(welcomeView);
+export const welcomePage = (requests$) => requests$.pipe(
+    filter(welcomeRoute),
+    map(welcomeView),
+);

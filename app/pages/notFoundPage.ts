@@ -3,8 +3,7 @@
  */
 import { RequestAction } from '../RequestAction';
 
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
+import { map } from 'rxjs/operators';
 
 const notFoundView = (action: RequestAction) => {
     action.setBody('<h1>Page not found :(</h1>');
@@ -13,4 +12,4 @@ const notFoundView = (action: RequestAction) => {
 };
 
 // Complete services
-export const notFoundPage = (requests$) => requests$.map(notFoundView);
+export const notFoundPage = (requests$) => requests$.pipe(map(notFoundView));
